@@ -8,6 +8,8 @@
 This browser based web application to ...
 *Hi my name is Eric. I am excited to join this team!
 	
+* Hi, my name is Helen and I am excited for this project because I can practice coding and make something useful!
+
 ## Technologies
 Technologies used for this project:
 * HTML, CSS
