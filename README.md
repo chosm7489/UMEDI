@@ -7,6 +7,9 @@
 ## General Info
 This browser based web application to ...
 * Hi my name is Sukhraj. I'm excited about this project because I feel like we are working on a real world problem that can be solved.
+* Hi my name is Eric. I am excited to join this team!	
+* Hi, my name is Helen and I am excited for this project because I can practice coding and make something useful!
+
 ## Technologies
 Technologies used for this project:
 * HTML, CSS
