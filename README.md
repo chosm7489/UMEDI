@@ -6,7 +6,7 @@
 
 ## General Info
 This browser based web application to ...
-	
+* Hi my name is Sukhraj. I'm excited about this project because I feel like we are working on a real world problem that can be solved.
 ## Technologies
 Technologies used for this project:
 * HTML, CSS
