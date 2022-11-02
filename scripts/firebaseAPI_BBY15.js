@@ -8,8 +8,8 @@ var firebaseConfig = {
   storageBucket: "comp1800---term-project.appspot.com",
   messagingSenderId: "267027097654",
   appId: "1:267027097654:web:42f4bb3b0966eb15c4d097"
-  };
+}
 
   // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const app = firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
