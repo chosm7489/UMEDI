@@ -55,14 +55,23 @@ function setAlarm() {
         return isAlarmSet = false;
     }
 
-    let time = `${selectMenu[0].value}:${selectMenu[1].value} ${selectMenu[2].value}`;
-    if (time.includes("Hour") || time.includes("Minute") || time.includes("AM/PM")) {
-        return alert("Please, select a valid time to set Alarm!");
-    }
+    var time = `${selectMenu[0].value}:${selectMenu[1].value} ${selectMenu[2].value}`;
+    // if (time.includes("Hour") || time.includes("Minute") || time.includes("AM/PM")) {
+    //     return alert("Please, select a valid time to set Alarm!");
+    // }
     alarmTime = time;
     isAlarmSet = true;
     content.classList.add("disable");
     setAlarmBtn.innerText = "Clear Alarm";
+   
+    var timeSetUp = db.collection("alarm");
+
+    timeSetUp.add({
+        hour : String([time[0]+time[1]]), 
+        minute : String([time[3]+time[4]]), 
+        AMPM : String(time[6]+time[7]),
+    });
 }
 
 setAlarmBtn.addEventListener("click", setAlarm);
+
