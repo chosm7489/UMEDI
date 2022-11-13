@@ -1,10 +1,10 @@
 const currentTime = document.querySelector("h1"),
-content = document.querySelector(".content"),
-selectMenu = document.querySelectorAll("select"),
-setAlarmBtn = document.querySelector("button");
+    content = document.querySelector(".content"),
+    selectMenu = document.querySelectorAll("select"),
+    setAlarmBtn = document.querySelector("button");
 
 let alarmTime, isAlarmSet,
-ringtone = new Audio("./images/ringtone.mp3");
+    ringtone = new Audio("./images/ringtone.mp3");
 
 for (let i = 12; i > 0; i--) {
     i = i < 10 ? `0${i}` : i;
@@ -26,11 +26,11 @@ for (let i = 2; i > 0; i--) {
 
 setInterval(() => {
     let date = new Date(),
-    h = date.getHours(),
-    m = date.getMinutes(),
-    s = date.getSeconds(),
-    ampm = "AM";
-    if(h >= 12) {
+        h = date.getHours(),
+        m = date.getMinutes(),
+        s = date.getSeconds(),
+        ampm = "AM";
+    if (h >= 12) {
         h = h - 12;
         ampm = "PM";
     }
@@ -60,14 +60,22 @@ function setAlarm() {
     isAlarmSet = true;
     content.classList.add("disable");
     setAlarmBtn.innerText = "Clear Alarm";
-   
+
     var timeSetUp = db.collection("alarm");
 
+    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+    const d = new Date();
+    let getDay = days[d.getDay()];
+
     timeSetUp.add({
-        hour : String([time[0]+time[1]]), 
-        minute : String([time[3]+time[4]]), 
-        AMPM : String(time[6]+time[7]),
+        hour: String([time[0] + time[1]]),
+        minute: String([time[3] + time[4]]),
+        AMPM: String(time[6] + time[7]),
+        day: getDay
     });
+
+    
 }
 
 setAlarmBtn.addEventListener("click", setAlarm);
