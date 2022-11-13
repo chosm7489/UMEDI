@@ -46,6 +46,8 @@ setInterval(() => {
     }
 });
 
+
+
 function setAlarm() {
     if (isAlarmSet) {
         alarmTime = "";
@@ -63,16 +65,21 @@ function setAlarm() {
 
     var timeSetUp = db.collection("alarm");
 
-    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const days = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
 
-    const d = new Date();
-    let getDay = days[d.getDay()];
-
+    for (let i = 0; i <= days.length ;i++) {
+        if(document.getElementById(`${days[i]}`).checked === true) {
+            var userDay = days[i];
+            break;
+         }
+    }
+      
     timeSetUp.add({
         hour: String([time[0] + time[1]]),
         minute: String([time[3] + time[4]]),
         AMPM: String(time[6] + time[7]),
-        day: getDay
+        day: userDay
+        
     });
 
     
