@@ -67,6 +67,7 @@ function displayCards(collection) {
                 newcard.querySelector('.card-title').innerHTML = title;
                 newcard.querySelector('.card-text').innerHTML = details;
                 newcard.querySelector('.card-image').src = `./images/${MedID}.png`; //Example: NV01.jpg
+                newcard.querySelector('a').onclick = () => setMedData(MedID);
 
                 //give unique ids to all elements for future use
                 // newcard.querySelector('.card-title').setAttribute("id", "ctitle" + i);
@@ -81,3 +82,7 @@ function displayCards(collection) {
 }
 
 displayCards("history");
+
+function setMedData(id){
+    localStorage.setItem ('MedID', id);
+}
