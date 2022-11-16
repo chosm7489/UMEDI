@@ -10,7 +10,6 @@
     <!------------------------>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="./styles/Historystyle.css">
 
     <!------------------------------------------>
     <!-- Bootstrap Library CSS JS CDN go here -->
@@ -39,20 +38,6 @@
 </head>
 
 <body>
-
-    <template id="MedicationCardTemplate">
-        <div class="card py-2 mx-2" style="width: 18rem;">
-            <img class="card-image card-img-top" src=" ..." alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <a href="medication.html" id="edit-info">Edit Information</a>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                    card's content.</p>
-                <a class="btn btn-primary card-href">Get Details</a>
-            </div>
-        </div>
-    </template>
-
     <!------------------------------>
     <!-- Your HTML Layout go here -->
     <!------------------------------>
@@ -61,19 +46,31 @@
     <nav id="navbarPlaceholder"></nav>
 
     <!-- body of page -->
-    
     <div class="container">
-        <h1>Medication History
-            <a href="addmedication.html">
-            <button type="button" class="btn btn-primary justify-content-end">Add</button>
-            </a>
-        </h1>
-        <!-- Here is container for cards  -->
-        <div class="container">
-            <div id="history-go-here" class="row row-cols-auto">
+        <h1>Medication Information</h1>
+        <form>
+            <fieldset class="mb-3">
+                <div class="form-group">
+                    <label >Name</label>
+                    <input type="text" id="nameAddInput" class="form-control" placeholder="Enter medication name">
+                </div>
+                <div class="form-group">
+                    <label >Code</label>
+                    <input type="text" id="codeAddInput" class="form-control" placeholder="Enter medication code">
+                </div>
+                <div class="form-group">
+                    <label >Intake Frequency</label>
+                    <input type="text" id="intakeAddInput" class="form-control" placeholder="Enter intake frequency">
+                </div>
+                <div class="form-group">
+                    <label >Details</label>
+                    <input type="text" id="detailsAddInput" class="form-control" placeholder="Enter details">
+                </div>
+            </fieldset>
+            <div class="d-flex justify-content-end mt-5">
+                <button type="button" class="btn btn-primary" onclick="addMedInfo()">Add</button>
             </div>
-        </div>
-        
+        </form>
     </div>
 
     <!-- footer goes here-->
@@ -84,8 +81,9 @@
     <!---------------------------------------------->
     <script src="./scripts/firebaseAPI_BBY15.js"></script>
     <script src="./scripts/skeleton.js"></script>
-    <script src="./scripts/history.js"></script>
+    <script src="./scripts/main.js"></script>
     <script src="./scripts/script.js"></script>
+    <script src="./scripts/addmedication.js"></script>
 </body>
 
 </html>

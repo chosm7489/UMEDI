@@ -6,7 +6,7 @@ function populateInfo() {
         if (user) {
 
             //go to the correct history document by referencing to the history id
-            currentMedication = db.collection("history").doc(history.uid)
+            currentMedication = db.collection("history").doc(history.id)
             //get the document for current medication.
             currentMedication.get()
                 .then(historyDoc => {
