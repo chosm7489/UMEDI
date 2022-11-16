@@ -46,8 +46,6 @@ setInterval(() => {
     }
 });
 
-
-
 function setAlarm() {
     if (isAlarmSet) {
         alarmTime = "";
@@ -67,22 +65,65 @@ function setAlarm() {
 
     const days = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
 
-    for (let i = 0; i <= days.length ;i++) {
-        if(document.getElementById(`${days[i]}`).checked === true) {
+    for (let i = 0; i <= days.length; i++) {
+        if (document.getElementById(`${days[i]}`).checked === true) {
             var userDay = days[i];
             break;
-         }
+        }
     }
-      
-    timeSetUp.add({
-        hour: String([time[0] + time[1]]),
-        minute: String([time[3] + time[4]]),
-        AMPM: String(time[6] + time[7]),
-        day: userDay
-        
-    });
+    // timeSetUp.add({
+    //     hour: String([time[0] + time[1]]),
+    //     minute: String([time[3] + time[4]]),
+    //     AMPM: String(time[6] + time[7]),
+    //     day: userDay,
+    // }
+    firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+            var currentUser = db.collection("users").doc(user.uid)
+            var userID = user.uid;
+            currentUser.get()
+                .then(userDoc => {
+                    var userEmail = userDoc.data().email;
+                    db.collection("alarm").add({
+                        userID: userID,
+                        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                        email: userEmail,
+                        hour: String([time[0] + time[1]]),
+                        minute: String([time[3] + time[4]]),
+                        AMPM: String(time[6] + time[7]),
+                        day: userDay,
+                        // }).then(()=>{
+                        //     window.location.href = "thanks.html";
+                    })
+                })
+            // var currentAlarm = db.collection("alarm").doc(user.uid)    
+            // currentAlarm.get()
+            //     .then(                              //name of the collection and documents should matach excatly with what you have in Firestore
+            //         somedoc => {                                                               //arrow notation
+            //             console.log("current document data: " + somedoc.data().AMPM);                          //.data() returns data object
+            //             // document.getElementById("hour").innerHTML = somedoc.data().hour;
+            //             // document.getElementById("hour").innerHTML = somedoc.data().hour;
+            //             // document.getElementById("minute").innerHTML = somedoc.data().minute;
+            //             // document.getElementById("AMPM").innerHTML = somedoc.data().AMPM;         //using javascript to display the data on the right place
+            //             //using json object indexing
+            //         })
+        }
+    })
 
-    
+    // function readAlarm() {
+    //     var currentAlarm = db.collection("alarm").doc(user.uid)                                                      //name of the collection and documents should matach excatly with what you have in Firestore
+    //         currentAlarm.get()
+    //         .then(somedoc => {                                                               //arrow notation
+    //             //  console.log("current document data: " + somedoc.data());                          //.data() returns data object
+    //             document.getElementById("days").innerHTML = somedoc.data().day;
+    //             document.getElementById("hour").innerHTML = somedoc.data().hour;
+    //             document.getElementById("minute").innerHTML = somedoc.data().minute;
+    //             document.getElementById("AMPM").innerHTML = somedoc.data().AMPM;         //using javascript to display the data on the right place
+    //             //using json object indexing
+    //         })
+    // }
+
+    // readAlarm();
 }
 
 setAlarmBtn.addEventListener("click", setAlarm);
