@@ -3,6 +3,22 @@ const currentTime = document.querySelector("h1"),
     selectMenu = document.querySelectorAll("select"),
     setAlarmBtn = document.querySelector("button");
 
+populateAlarm();
+
+var currentUser;
+firebase.auth().onAuthStateChanged(user => {
+    if (user) {
+        currentUser = db.collection("users").doc(user.uid);   //global
+        console.log(currentUser);
+
+      
+    } else {
+        // No user is signed in.
+        console.log("No user is signed in");
+        // window.location.href = "login.html";
+    }
+});
+
 let alarmTime, isAlarmSet,
     ringtone = new Audio("./images/ringtone.mp3");
 
@@ -46,6 +62,7 @@ setInterval(() => {
     }
 });
 
+
 function setAlarm() {
     if (isAlarmSet) {
         alarmTime = "";
@@ -71,12 +88,7 @@ function setAlarm() {
             break;
         }
     }
-    // timeSetUp.add({
-    //     hour: String([time[0] + time[1]]),
-    //     minute: String([time[3] + time[4]]),
-    //     AMPM: String(time[6] + time[7]),
-    //     day: userDay,
-    // }
+
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
             var currentUser = db.collection("users").doc(user.uid)
@@ -92,39 +104,83 @@ function setAlarm() {
                         minute: String([time[3] + time[4]]),
                         AMPM: String(time[6] + time[7]),
                         day: userDay,
-                        // }).then(()=>{
-                        //     window.location.href = "thanks.html";
                     })
+                        .then(() => {
+
+                            populateAlarm()
+                            // readAlarm();
+                            // window.location.href = "thanks.html";
+                        })
+
                 })
-            // var currentAlarm = db.collection("alarm").doc(user.uid)    
-            // currentAlarm.get()
-            //     .then(                              //name of the collection and documents should matach excatly with what you have in Firestore
-            //         somedoc => {                                                               //arrow notation
-            //             console.log("current document data: " + somedoc.data().AMPM);                          //.data() returns data object
-            //             // document.getElementById("hour").innerHTML = somedoc.data().hour;
-            //             // document.getElementById("hour").innerHTML = somedoc.data().hour;
-            //             // document.getElementById("minute").innerHTML = somedoc.data().minute;
-            //             // document.getElementById("AMPM").innerHTML = somedoc.data().AMPM;         //using javascript to display the data on the right place
-            //             //using json object indexing
-            //         })
+
+
         }
     })
 
-    // function readAlarm() {
-    //     var currentAlarm = db.collection("alarm").doc(user.uid)                                                      //name of the collection and documents should matach excatly with what you have in Firestore
-    //         currentAlarm.get()
-    //         .then(somedoc => {                                                               //arrow notation
-    //             //  console.log("current document data: " + somedoc.data());                          //.data() returns data object
-    //             document.getElementById("days").innerHTML = somedoc.data().day;
-    //             document.getElementById("hour").innerHTML = somedoc.data().hour;
-    //             document.getElementById("minute").innerHTML = somedoc.data().minute;
-    //             document.getElementById("AMPM").innerHTML = somedoc.data().AMPM;         //using javascript to display the data on the right place
-    //             //using json object indexing
-    //         })
-    // }
-
-    // readAlarm();
 }
 
+function populateAlarm() {
+    firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+            // var currentUser = db.collection("alarm").doc(user.uid)
+
+            db.collection("alarm").where("userID", "==", user.uid)
+                // .orderBy("timestamp")            //NEW LINE;  what do you want to sort by?
+                // .limitToLast(5)                       //NEW LINE:  how many do you want to get?
+                .get()
+                // .then(allHikes => {
+                // allHikes.forEach(somedoc => {
+
+                .then(allReviews => {
+                    reviews = allReviews.docs
+                    console.log(reviews);
+
+                    document.getElementById("alarmlist").innerHTML = "";
+
+                    reviews.forEach(doc => {
+                        var userdays = doc.data().day
+                        var userhours = doc.data().hour
+                        var userminute = doc.data().minute
+                        var userAMPM = doc.data().AMPM
+                        // document.getElementById("dayss").innerHTML = userdays;
+           
+                        let userdata = document.createElement("div");
+                        userdata.classList.add("content");
+                        let d1 = document.createElement("div");
+                        let d2 = document.createElement("div");
+                        let d3= document.createElement("div");
+                        let d4 = document.createElement("div");
+
+                        d1.innerHTML = userdays;
+                        d2.innerHTML = userhours;
+                        d3.innerHTML = userminute;
+                        d4.innerHTML = userAMPM
+                        
+                        userdata.appendChild(d1);
+                        userdata.appendChild(d2);
+                        userdata.appendChild(d3);
+                        userdata.appendChild(d4);
+                        
+                        document.getElementById("alarmlist").appendChild(userdata);
+                        
+                        
+
+                    })
+                })
+
+            // console.log(JSON.stringify(userday));
+            document.getElementById("dayss").innerHTML = somedoc.data().day;
+            document.getElementById("hourss").innerHTML = somedoc.data().hour;
+            document.getElementById("minutess").innerHTML = somedoc.data().minute;
+            document.getElementById("AMPM").innerHTML = somedoc.data().AMPM;
+
+          
+        }
+    })
+}
 setAlarmBtn.addEventListener("click", setAlarm);
 
+// function setuserData(id) {
+//     localStorage.setItem('userID', id);
+// }
