@@ -8,6 +8,40 @@ function loadSkeleton(){
 }
 loadSkeleton();  //invoke the function
 
+var currentUser;
+firebase.auth().onAuthStateChanged(user => {
+    if (user) {
+        currentUser = db.collection("users").doc(user.uid);   //global
+        console.log(currentUser);
+
+        // the following functions are always called when someone is logged in
+        displayCards("history");
+    } else {
+        // No user is signed in.
+        console.log("No user is signed in");
+        window.location.href = "login.html";
+    }
+});
+
+//-----------------------------------------------------------------------------
+// This function is called whenever the user clicks on the "add" icon.
+// It adds the medication to the "history" array
+//-----------------------------------------------------------------------------
+// function addMedication(MedID) {
+//     currentUser.set({
+//             bookmarks: firebase.firestore.FieldValue.arrayUnion(MedID)
+//         }, {
+//             merge: true
+//         })
+//         .then(function () {
+//             console.log("medication has been saved for: " + currentUser);
+//             var iconID = 'save-' + hikeID;
+//             //console.log(iconID);
+// 						//this is to change the icon of the hike that was saved to "filled"
+//             document.getElementById(iconID).innerText = 'medication';
+//         });
+// }
+
 function writeMedication() {
     //define a variable for the collection you want to create in Firestore to populate data
     var MedRef = db.collection("history");
@@ -81,7 +115,6 @@ function displayCards(collection) {
         })
 }
 
-displayCards("history");
 
 function setMedData(id){
     localStorage.setItem ('MedID', id);
