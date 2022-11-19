@@ -12,7 +12,7 @@ function addMedInfo() {
         if (user) {
             var currentUser = db.collection("users").doc(user.uid)
             var userID = user.uid;
-            var storageRef = storage.ref("images/" + user.uid + ".jpg");
+            var storageRef = storage.ref("images/" + Code + ".jpg");
             console.log(storageRef);
             //get the document for current user.
             currentUser.get()
@@ -38,7 +38,7 @@ function addMedInfo() {
                     storageRef.getDownloadURL()
     
                         //Asynch call to save the form fields into Firestore.
-                        db.collection("users").doc(user.uid).update({
+                        db.collection("medications").doc(user.uid).update({
                                 profilePic: url // Save the URL into users collection
                             })
                             .then(function () {
