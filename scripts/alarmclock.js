@@ -147,8 +147,8 @@ function populateAlarm() {
                         var userminute = doc.data().minute
                         var userAMPM = doc.data().AMPM
                         var _button = document.createElement("button");
-                        _button.innerHTML = "Delete"
-                        // _button.setAttribute()
+                        
+                        
                         // document.getElementById("dayss").innerHTML = userdays;
 
                         let userdata = document.createElement("div");
@@ -158,34 +158,32 @@ function populateAlarm() {
                         let d3 = document.createElement("div");
                         let d4 = document.createElement("div");
                         let d5 = document.createElement("div");
-
+                        
 
                         d1.innerHTML = userdays;
                         d2.innerHTML = userhours;
                         d3.innerHTML = userminute;
                         d4.innerHTML = userAMPM
                         d5.innerHTML = "";
+
+                        console.log("test");
+                       
+
                         userdata.appendChild(d1);
-                        d5.appendChild(_button);
-                        d5.classList.add("delete");
-                        _button.setAttribute("onclick","test()");
                         userdata.appendChild(d2);
                         userdata.appendChild(d3);
                         userdata.appendChild(d4);
                         userdata.appendChild(d5);
                         
+                        d5.appendChild(_button);
+                        _button.innerHTML = "Delete"
+                        _button.setAttribute("onclick","test()");
+                        d5.classList.add("delete");
 
                         document.getElementById("alarmlist").appendChild(userdata);
 
                     })
                 })
-
-            // console.log(JSON.stringify(userday));
-            document.getElementById("dayss").innerHTML = somedoc.data().day;
-            document.getElementById("hourss").innerHTML = somedoc.data().hour;
-            document.getElementById("minutess").innerHTML = somedoc.data().minute;
-            document.getElementById("AMPM").innerHTML = somedoc.data().AMPM;
-
 
         }
     })
