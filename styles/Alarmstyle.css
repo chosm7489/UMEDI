@@ -6,7 +6,11 @@
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
-
+#alarmlist {
+ text-align: center;
+ align-items: center;
+ 
+}
 body{
   padding: 0 10px;
   min-height: 100vh;

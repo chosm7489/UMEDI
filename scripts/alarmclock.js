@@ -11,7 +11,7 @@ firebase.auth().onAuthStateChanged(user => {
         currentUser = db.collection("users").doc(user.uid);   //global
         console.log(currentUser);
 
-      
+
     } else {
         // No user is signed in.
         console.log("No user is signed in");
@@ -75,8 +75,8 @@ function setAlarm() {
     var time = `${selectMenu[0].value}:${selectMenu[1].value} ${selectMenu[2].value}`;
     alarmTime = time;
     isAlarmSet = true;
-    content.classList.add("disable");
-    setAlarmBtn.innerText = "Clear Alarm";
+    // content.classList.add("disable");
+    // setAlarmBtn.innerText = "Clear Alarm";
 
     var timeSetUp = db.collection("alarm");
 
@@ -120,6 +120,9 @@ function setAlarm() {
 
 }
 
+function test() {
+    console.log("test");
+}
 function populateAlarm() {
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
@@ -134,7 +137,7 @@ function populateAlarm() {
 
                 .then(allReviews => {
                     reviews = allReviews.docs
-                    console.log(reviews);
+                    // console.log(reviews);
 
                     document.getElementById("alarmlist").innerHTML = "";
 
@@ -143,28 +146,36 @@ function populateAlarm() {
                         var userhours = doc.data().hour
                         var userminute = doc.data().minute
                         var userAMPM = doc.data().AMPM
+                        var _button = document.createElement("button");
+                        _button.innerHTML = "Delete"
+                        // _button.setAttribute()
                         // document.getElementById("dayss").innerHTML = userdays;
-           
+
                         let userdata = document.createElement("div");
                         userdata.classList.add("content");
                         let d1 = document.createElement("div");
                         let d2 = document.createElement("div");
-                        let d3= document.createElement("div");
+                        let d3 = document.createElement("div");
                         let d4 = document.createElement("div");
+                        let d5 = document.createElement("div");
+
 
                         d1.innerHTML = userdays;
                         d2.innerHTML = userhours;
                         d3.innerHTML = userminute;
                         d4.innerHTML = userAMPM
-                        
+                        d5.innerHTML = "";
                         userdata.appendChild(d1);
+                        d5.appendChild(_button);
+                        d5.classList.add("delete");
+                        _button.setAttribute("onclick","test()");
                         userdata.appendChild(d2);
                         userdata.appendChild(d3);
                         userdata.appendChild(d4);
+                        userdata.appendChild(d5);
                         
+
                         document.getElementById("alarmlist").appendChild(userdata);
-                        
-                        
 
                     })
                 })
@@ -175,7 +186,7 @@ function populateAlarm() {
             document.getElementById("minutess").innerHTML = somedoc.data().minute;
             document.getElementById("AMPM").innerHTML = somedoc.data().AMPM;
 
-          
+
         }
     })
 }
