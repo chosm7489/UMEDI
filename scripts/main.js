@@ -21,14 +21,20 @@ insertName(); //run the function
 
 function readQuote() {
     db.collection("quotes").doc("friday")                                                      //name of the collection and documents should matach excatly with what you have in Firestore
-      .onSnapshot(somedoc => {                                                               //arrow notation
-           console.log("current document data: " + somedoc.data());                          //.data() returns data object
-           document.getElementById("quote-goes-here").innerHTML = somedoc.data().quote;      //using javascript to display the data on the right place
-           
-           //Here are other ways to access key:value data fields
-           //$('#quote-goes-here').text(tuesdayDoc.data().quote);                                       //using jquery object dot notation
-           //$("#quote-goes-here").text(tuesdayDoc.data()["quote"]);                                    //using json object indexing
-      })
+        .onSnapshot(somedoc => {
+            console.log("current document data: " + somedoc.data());
+            var quoteDiv = document.getElementById("quote-goes-here");
+            if (quoteDiv) {
+                document.getElementById("quote-goes-here").innerHTML = somedoc.data().quote;
+            }
+            //arrow notation
+            //.data() returns data object
+            //using javascript to display the data on the right place
+
+            //Here are other ways to access key:value data fields
+            //$('#quote-goes-here').text(tuesdayDoc.data().quote);                                       //using jquery object dot notation
+            //$("#quote-goes-here").text(tuesdayDoc.data()["quote"]);                                    //using json object indexing
+        })
 }
 readQuote();        //calling the function
 
@@ -40,7 +46,7 @@ function logout() {
     firebase.auth().signOut().then(() => {
         // Sign-out successful.
         window.location.href = "index.html";
-      }).catch((error) => {
+    }).catch((error) => {
         // An error happened.
-      });
+    });
 }

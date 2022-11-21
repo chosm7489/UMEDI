@@ -64,17 +64,18 @@ setInterval(() => {
 
 
 function setAlarm() {
+    
     if (isAlarmSet) {
         alarmTime = "";
         ringtone.pause();
-        content.classList.remove("disable");
+        // content.classList.remove("disable");
         setAlarmBtn.innerText = "Set Alarm";
         return isAlarmSet = false;
     }
-
+    console.log("button clicked");
     var time = `${selectMenu[0].value}:${selectMenu[1].value} ${selectMenu[2].value}`;
     alarmTime = time;
-    isAlarmSet = true;
+    // isAlarmSet = true;
     // content.classList.add("disable");
     // setAlarmBtn.innerText = "Clear Alarm";
 
@@ -188,6 +189,7 @@ function populateAlarm() {
         }
     })
 }
+
 setAlarmBtn.addEventListener("click", setAlarm);
 
 // function setuserData(id) {

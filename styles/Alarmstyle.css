@@ -51,7 +51,7 @@ body{
   justify-content: space-between;
 }
 .content.disable{
-  cursor: no-drop;
+  /* cursor: no-drop; */
 }
 .content .column{
   padding: 0 10px;
