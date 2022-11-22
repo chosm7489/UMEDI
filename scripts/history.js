@@ -12,10 +12,11 @@ var currentUser;
 firebase.auth().onAuthStateChanged(user => {
     if (user) {
         currentUser = db.collection("users").doc(user.uid);   //global
+        // var currentUser2 =db.collection("users").doc(user.uid).collection("medications").doc(medid)
         console.log(currentUser);
 
         // the following functions are always called when someone is logged in
-        displayCards("history");
+        displayCards("users");
     } else {
         // No user is signed in.
         console.log("No user is signed in");
@@ -86,21 +87,24 @@ function writeMedication() {
 
 function displayCards(collection) {
     let cardTemplate = document.getElementById("MedicationCardTemplate");
-
-    db.collection(collection).get()
+    firebase.auth().onAuthStateChanged(user => { 
+        db.collection("users").doc(user.uid).collection("medications").get()
         .then(snap => {
             //var i = 1;  //if you want to use commented out section
             snap.forEach(doc => { //iterate thru each doc
                 var title = doc.data().name;        // get value of the "name" key
                 var details = doc.data().details;   // get value of the "details" key
                 var Intake = doc.data().Intake_Frequency; // get value of the "intake" key
-								var MedID = doc.data().code;    //get unique ID to each hike to be used for fetching right image
+				var MedID = doc.data().code;    //get unique ID to each hike to be used for fetching right image
+                var URL = doc.data().picture;
+                // let picUrl = userDoc.data().profilePic;
                 let newcard = cardTemplate.content.cloneNode(true);
 
                 //update title and text and image
                 newcard.querySelector('.card-title').innerHTML = title;
                 newcard.querySelector('.card-text').innerHTML = details;
-                newcard.querySelector('.card-image').src = `./images/${MedID}.png`; //Example: NV01.jpg
+                newcard.querySelector('.card-image').src = URL;
+                // newcard.querySelector('.card-image').src = `./images/${MedID}.png`; Example: NV01.jpg
                 newcard.querySelector('a').onclick = () => setMedData(MedID);
 
                 //give unique ids to all elements for future use
@@ -109,11 +113,13 @@ function displayCards(collection) {
                 // newcard.querySelector('.card-image').setAttribute("id", "cimage" + i);
 
                 //attach to gallery
-                document.getElementById(collection + "-go-here").appendChild(newcard);
+                document.getElementById("history-go-here").appendChild(newcard);
                 //i++;   //if you want to use commented out section
             })
         })
+    })
 }
+    
 
 
 function setMedData(id){
