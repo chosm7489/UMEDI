@@ -65,6 +65,8 @@ function updateMedImage(userid, medid) {
                             console.log('Added Profile Pic URL to Firestore.');
                             console.log('Saved use profile info');
                             //document.getElementById('personalInfoFields').disabled = true;
+                        }).then(()=>{
+                            window.location.href = "result.html"; //new line added
                         })
                 })
         })
