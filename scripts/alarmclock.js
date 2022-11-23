@@ -62,9 +62,10 @@ setInterval(() => {
     }
 });
 
+const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 function setAlarm() {
-    
+
     if (isAlarmSet) {
         alarmTime = "";
         ringtone.pause();
@@ -81,11 +82,12 @@ function setAlarm() {
 
     var timeSetUp = db.collection("alarm");
 
-    const days = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+    var dayIndex = 0;
 
     for (let i = 0; i <= days.length; i++) {
         if (document.getElementById(`${days[i]}`).checked === true) {
-            var userDay = days[i];
+            dayIndex = i;
+            // var userDay = days[i];
             break;
         }
     }
@@ -104,7 +106,8 @@ function setAlarm() {
                         hour: String([time[0] + time[1]]),
                         minute: String([time[3] + time[4]]),
                         AMPM: String(time[6] + time[7]),
-                        day: userDay,
+                        day: dayIndex,
+                       
                     })
                         .then(() => {
 
@@ -121,17 +124,33 @@ function setAlarm() {
 
 }
 
-function test() {
-    console.log("test");
+function test(alarmId) {
+
+    firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+            db.collection("alarm").doc(alarmId).delete()
+            .then(() => {window.location.reload()})
+        }
+    })
 }
+
+// 
+//    
+// })
 function populateAlarm() {
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
             // var currentUser = db.collection("alarm").doc(user.uid)
 
-            db.collection("alarm").where("userID", "==", user.uid)
-                // .orderBy("timestamp")            //NEW LINE;  what do you want to sort by?
-                // .limitToLast(5)                       //NEW LINE:  how many do you want to get?
+            // .where("userID", "==", user.uid)
+            db.collection("alarm")
+                .orderBy("day")
+                .orderBy("AMPM")
+                .orderBy("hour")
+                .orderBy("minute")
+
+                //NEW LINE;  what do you want to sort by?
+                // .limit(5)         //NEW LINE:  how many do you want to get?
                 .get()
                 // .then(allHikes => {
                 // allHikes.forEach(somedoc => {
@@ -147,38 +166,37 @@ function populateAlarm() {
                         var userhours = doc.data().hour
                         var userminute = doc.data().minute
                         var userAMPM = doc.data().AMPM
+                        var alarmId = doc.id
                         var _button = document.createElement("button");
-                        
-                        
+                       
+
+
                         // document.getElementById("dayss").innerHTML = userdays;
 
                         let userdata = document.createElement("div");
-                        userdata.classList.add("content");
+                        userdata.classList.add("content", "alarmlist");
                         let d1 = document.createElement("div");
                         let d2 = document.createElement("div");
                         let d3 = document.createElement("div");
                         let d4 = document.createElement("div");
                         let d5 = document.createElement("div");
-                        
 
-                        d1.innerHTML = userdays;
+
+                        d1.innerHTML = days[userdays];
                         d2.innerHTML = userhours;
                         d3.innerHTML = userminute;
                         d4.innerHTML = userAMPM
                         d5.innerHTML = "";
-
-                        console.log("test");
-                       
 
                         userdata.appendChild(d1);
                         userdata.appendChild(d2);
                         userdata.appendChild(d3);
                         userdata.appendChild(d4);
                         userdata.appendChild(d5);
-                        
+
                         d5.appendChild(_button);
                         _button.innerHTML = "Delete"
-                        _button.setAttribute("onclick","test()");
+                        _button.setAttribute("onclick", `test('${alarmId}')`);
                         d5.classList.add("delete");
 
                         document.getElementById("alarmlist").appendChild(userdata);

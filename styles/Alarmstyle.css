@@ -31,7 +31,17 @@ body{
   
   grid-area: wrapper1;
 }
-
+#alarmlist {
+  font-size: x-large;
+  justify-content:start;
+  overflow-y: auto;
+}
+.content {
+  
+  /* box-sizing: border-box; */
+  /* padding-top: 5%;
+  margin-top: 5%; */
+}
 .wrapper2 {
   
   grid-area: wrapper2;
@@ -107,6 +117,7 @@ body{
     
     margin-top: 5%;
     width: 550px;
+    height : 550px;
     padding: 30px 30px 38px;
     background: #fff;
     border-radius: 10px;
