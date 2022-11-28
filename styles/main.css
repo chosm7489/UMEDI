@@ -1,13 +1,29 @@
-/* .shortCut {
-    margin:0;
-    border: none;
-    outline: none;
-    width: 200%;
-    font-size: 15px;
-    padding: 17px 0;
-    margin-top: 20px;
-    border-radius: 5px;
-    background: #4A98F7;
-    color: #fff;
-    cursor: pointer;
-  } */
+.shortCut {
+  display: inline-block;
+  margin:1%;
+  width: 150px;
+  height: 150px;
+  padding: 30px 30px 38px;
+ 
+  background: #fff;
+  border-radius: 10px;
+  /* flex-direction: row; */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  /* margin-left: auto;
+  margin-right: auto; */
+  text-align: center;
+  /* line-height: 150px; */
+  }
+ .shortcutHistory {
+  font-size: large;
+  text-decoration: none; 
+  color: black;
+  font-weight: bold;
+ }
+
+ .shortcutAlarm {
+  font-size: large;
+  font-weight: bold;
+  text-decoration: none; 
+  color: black;
+ }
