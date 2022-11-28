@@ -10,6 +10,7 @@
     <!------------------------>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../styles/Historystyle.css">
 
     <!------------------------------------------>
     <!-- Bootstrap Library CSS JS CDN go here -->
@@ -39,6 +40,20 @@
 </head>
 
 <body>
+
+    <template id="MedicationCardTemplate">
+        <div class="card py-2 mx-2" style="width: 18rem;">
+            <img class="card-image card-img-top" src=" ..." alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <!-- <a href="medication.html" id="edit-info">Edit Information</a> -->
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                    card's content.</p>
+                <a href="medication.html" id="edit-info" class="btn btn-primary card-href">Edit Info</a>
+            </div>
+        </div>
+    </template>
+
     <!------------------------------>
     <!-- Your HTML Layout go here -->
     <!------------------------------>
@@ -47,16 +62,20 @@
     <nav id="navbarPlaceholder"></nav>
 
     <!-- body of page -->
-
-    <div class="container-fluid bg-dark text-light p-5">
-        <div class="container bg-dark p-5">
-            <h1 class="display-4">Our Mission </h1>
-            <hr>
-            <p>UMedi aims to remind users to take their prescription or non-prescription medication and provides many customizations and intake history.</p> 
+    
+    <div class="container">
+        <h1>Medication History
+            <a href="addmedication.html">
+            <button type="button" class="btn btn-primary justify-content-end">Add</button>
+            </a>
+        </h1>
+        <!-- Here is container for cards  -->
+        <div class="container">
+            <div id="history-go-here" class="row row-cols-auto">
+            </div>
         </div>
+        
     </div>
-
-    <h3>A young team of developers focused on making an impactful application.</h3>
 
     <!-- footer goes here-->
     <nav id="footerPlaceholder"></nav>
@@ -64,10 +83,9 @@
     <!---------------------------------------------->
     <!-- Your own JavaScript functions go here    -->
     <!---------------------------------------------->
-    <script src="./scripts/firebaseAPI_BBY15.js"></script>
-    <script src="./scripts/skeleton.js"></script>
-    <script src="./scripts/main.js"></script>
-    <script src="./scripts/script.js"></script>
+    <script src="../scripts/firebaseAPI_BBY15.js"></script>
+    <script src="../scripts/skeleton.js"></script>
+    <script src="../scripts/history.js"></script>
 </body>
 
 </html>
