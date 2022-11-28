@@ -144,7 +144,7 @@ function setAlarm() {
 
 }
 
-function test(alarmId) {
+function deleteAlarm(alarmId) {
 
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
@@ -217,7 +217,7 @@ function populateAlarm() {
 
                         d5.appendChild(_button);
                         _button.innerHTML = "Delete"
-                        _button.setAttribute("onclick", `test('${alarmId}')`);
+                        _button.setAttribute("onclick", `deleteAlarm('${alarmId}')`);
                         d5.classList.add("delete");
 
                         document.getElementById("alarmlist").appendChild(userdata);
