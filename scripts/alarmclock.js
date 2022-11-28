@@ -5,17 +5,16 @@ const currentTime = document.querySelector("h1"),
 
 populateAlarm();
 
+// Check if user is logged in or not
 var currentUser;
 firebase.auth().onAuthStateChanged(user => {
     if (user) {
-        currentUser = db.collection("users").doc(user.uid);   //global
-        console.log(currentUser);
-
-
+        currentUser = db.collection("users").doc(user.uid);   
+       
     } else {
-        // No user is signed in.
+      
         console.log("No user is signed in");
-        // window.location.href = "login.html";
+       
     }
 });
 
@@ -64,46 +63,29 @@ setInterval(() => {
 
 const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
+//turn off alarm 
 function turnOffAlarm() {
     isAlarmSet = true;
     if (isAlarmSet) {
         alarmTime = "";
         ringtone.pause();
-        // content.classList.remove("disable");
-        // setAlarmBtn.innerText = "Set Alarm";
         return isAlarmSet = false;
     }
-    console.log("Turnoff button clikced");
-    
+
 }
 
 
 function setAlarm() {
 
-    // if (isAlarmSet) {
-    //     alarmTime = "";
-    //     ringtone.pause();
-    //     // content.classList.remove("disable");
-    //     // setAlarmBtn.innerText = "Set Alarm";
-    //     return isAlarmSet = false;
-    // }
-    console.log("button clicked");
-    // var time = `${selectMenu[0].value}:${selectMenu[1].value} ${selectMenu[2].value}`;
-    // alarmTime = time;
-    // isAlarmSet = true;
-    // content.classList.add("disable");
-    // setAlarmBtn.innerText = "Clear Alarm";
-
+    //Set 
     var time = `${selectMenu[0].value}:${selectMenu[1].value} ${selectMenu[2].value}`;
     alarmTime = time;
    
-
     var dayIndex = 0;
 
     for (let i = 0; i <= days.length; i++) {
         if (document.getElementById(`${days[i]}`).checked === true) {
             dayIndex = i;
-            // var userDay = days[i];
             break;
         }
     }
@@ -131,8 +113,7 @@ function setAlarm() {
                         .then(() => {
                             console.log("work!");
                             populateAlarm()
-                            // readAlarm();
-                            // window.location.href = "thanks.html";
+                            
                         })
 
                 })
@@ -142,7 +123,7 @@ function setAlarm() {
     })
 
 }
-
+// Delete alarm set from alarm list
 function deleteAlarm(alarmId) {
 
     firebase.auth().onAuthStateChanged(user => {
@@ -153,44 +134,32 @@ function deleteAlarm(alarmId) {
     })
 }
 
-// 
-//    
-// })
+//Populate alarm set into alarm list
 function populateAlarm() {
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
-            // var currentUser = db.collection("alarm").doc(user.uid)
-
-            // .where("userID", "==", user.uid)
-            db.collection("alarm")
+          
+            db.collection("alarm").where("userID", "==" ,user.uid )
                 .orderBy("day")
                 .orderBy("AMPM")
                 .orderBy("hour")
                 .orderBy("minute")
 
-                //NEW LINE;  what do you want to sort by?
-                // .limit(5)         //NEW LINE:  how many do you want to get?
                 .get()
-                // .then(allHikes => {
-                // allHikes.forEach(somedoc => {
-
+               
                 .then(allReviews => {
                     reviews = allReviews.docs
-                    // console.log(reviews);
 
                     document.getElementById("alarmlist").innerHTML = "";
 
                     reviews.forEach(doc => {
                         var userdays = doc.data().day
                         var userhours = doc.data().hour + ":" + doc.data().minute
-                        // var userminute = doc.data().minute
+                    
                         var userAMPM = doc.data().AMPM
                         var alarmId = doc.id
                         var _button = document.createElement("button");
                         var usernoteinput = doc.data().userNote;
-
-                        console.log(usernoteinput);
-                        // document.getElementById("dayss").innerHTML = userdays;
 
                         let userdata = document.createElement("div");
                         userdata.classList.add("content", "alarmset");
@@ -230,6 +199,4 @@ function populateAlarm() {
 
 setAlarmBtn.addEventListener("click", setAlarm);
 
-// function setuserData(id) {
-//     localStorage.setItem('userID', id);
-// }
+
