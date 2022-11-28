@@ -12,7 +12,6 @@ var currentUser;
 firebase.auth().onAuthStateChanged(user => {
     if (user) {
         currentUser = db.collection("users").doc(user.uid);   //global
-        // var currentUser2 =db.collection("users").doc(user.uid).collection("medications").doc(medid)
         console.log(currentUser);
 
         // the following functions are always called when someone is logged in
@@ -24,66 +23,48 @@ firebase.auth().onAuthStateChanged(user => {
     }
 });
 
-//-----------------------------------------------------------------------------
-// This function is called whenever the user clicks on the "add" icon.
-// It adds the medication to the "history" array
-//-----------------------------------------------------------------------------
-// function addMedication(MedID) {
-//     currentUser.set({
-//             bookmarks: firebase.firestore.FieldValue.arrayUnion(MedID)
-//         }, {
-//             merge: true
-//         })
-//         .then(function () {
-//             console.log("medication has been saved for: " + currentUser);
-//             var iconID = 'save-' + hikeID;
-//             //console.log(iconID);
-// 						//this is to change the icon of the hike that was saved to "filled"
-//             document.getElementById(iconID).innerText = 'medication';
-//         });
+
+// function writeMedication() {
+//     //define a variable for the collection you want to create in Firestore to populate data
+//     var MedRef = db.collection("history");
+
+//     MedRef.add({
+//         code:"AM01",
+//         name: "Amoxicillin",    //replace with your own medication
+//         city: "Burnaby",
+//         province: "BC",
+//         Intake_Frequency: "2 times a day",
+//         details: "No Special details",
+//         last_updated: firebase.firestore.FieldValue.serverTimestamp()  
+//     });
+//     MedRef.add({
+//         code:"BM02",
+//         name: "Metformin",    //replace with your own medication
+//         city: "Abbotsford",
+//         province: "BC",
+//         Intake_Frequency: "3 times a day",
+//         details: "No Special details",
+//         last_updated: firebase.firestore.FieldValue.serverTimestamp()
+//    });
+//    MedRef.add({
+//         code:"CM03",
+//         name: "Ibuprofen",    //replace with your own medication?
+//         city: "North Vancouver",
+//         province: "BC",
+//         Intake_Frequency: "As needed",
+//         details: "Take whenever in pain.",
+//         last_updated: firebase.firestore.Timestamp.fromDate(new Date("March 10, 2022"))
+//    });
+//    MedRef.add({
+//         code:"DM04",
+//         name: "Naproxen",    //replace with your own medication?
+//         city: "White Rock",
+//         province: "BC",
+//         Intake_Frequency: "1 times a day",
+//         details: "No Special details",
+//         last_updated: firebase.firestore.Timestamp.fromDate(new Date("March 10, 2022"))
+// });
 // }
-
-function writeMedication() {
-    //define a variable for the collection you want to create in Firestore to populate data
-    var MedRef = db.collection("history");
-
-    MedRef.add({
-        code:"AM01",
-        name: "Amoxicillin",    //replace with your own medication
-        city: "Burnaby",
-        province: "BC",
-        Intake_Frequency: "2 times a day",
-        details: "No Special details",
-        last_updated: firebase.firestore.FieldValue.serverTimestamp()  
-    });
-    MedRef.add({
-        code:"BM02",
-        name: "Metformin",    //replace with your own medication
-        city: "Abbotsford",
-        province: "BC",
-        Intake_Frequency: "3 times a day",
-        details: "No Special details",
-        last_updated: firebase.firestore.FieldValue.serverTimestamp()
-   });
-   MedRef.add({
-        code:"CM03",
-        name: "Ibuprofen",    //replace with your own medication?
-        city: "North Vancouver",
-        province: "BC",
-        Intake_Frequency: "As needed",
-        details: "Take whenever in pain.",
-        last_updated: firebase.firestore.Timestamp.fromDate(new Date("March 10, 2022"))
-   });
-   MedRef.add({
-        code:"DM04",
-        name: "Naproxen",    //replace with your own medication?
-        city: "White Rock",
-        province: "BC",
-        Intake_Frequency: "1 times a day",
-        details: "No Special details",
-        last_updated: firebase.firestore.Timestamp.fromDate(new Date("March 10, 2022"))
-});
-}
 
 function displayCards(collection) {
     let cardTemplate = document.getElementById("MedicationCardTemplate");

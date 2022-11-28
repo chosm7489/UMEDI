@@ -1,76 +1,125 @@
 /* Import Google font - Poppins */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
-*{
+
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
+
 #alarmlist {
- text-align: center;
- align-items: center;
- 
+  text-align: center;
+  align-items: center;
+  font-size: x-large;
+  justify-content: start;
+  overflow-y: auto;
 }
-body{
+
+body {
   padding: 0 10px;
   min-height: 100vh;
   background: #4A98F7;
 }
+
+#userNoteText {
+  width: 100%;
+  margin-top: 3%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.userNote {
+  margin-left: 1%;
+  grid-area: userNote;
+}
 .container2 {
   float: right;
 }
-
+.turnOffButton {
+  width: 100%;
+  border: none;
+  outline: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 20px;
+  padding: 17px 0;
+  margin-top: 20px;
+  border-radius: 5px;
+  background: #192d45;
+}
 .alarm {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-areas:
-    "wrapper1 wrapper2" 
+    "wrapper1 wrapper2"
   ;
 }
+/* .delete button {
+  font-size: 50px;
+} */
 .wrapper1 {
-  
+
   grid-area: wrapper1;
 }
-#alarmlist {
-  font-size: x-large;
-  justify-content:start;
-  overflow-y: auto;
+
+.alarmset {
+display: grid;
+grid-template-rows: 1fr 1fr;
+grid-template-areas: 
+"usernote"
+;
+text-align: center;
+box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+border-radius: 10px;
 }
-.content {
-  
-  /* box-sizing: border-box; */
-  /* padding-top: 5%;
-  margin-top: 5%; */
+.alarmset > span {
+  margin-left: 5%;
+}
+.alarmset > div {
+  /* display:inline-block; */
+  margin-left: 7%;
+}
+.delete {
+  font-size: 25px;
+  margin-bottom: 3%;
+  margin-right: 15%;
 }
 .wrapper2 {
-  
+
   grid-area: wrapper2;
 }
 
-.wrapper img{
+.wrapper img {
   max-width: 103px;
 }
-.wrapper h1{
+
+.wrapper h1 {
   font-size: 38px;
   font-weight: 500;
   margin: 30px 0;
 }
 
-.wrapper .content{
+.wrapper .content {
   width: 100%;
   justify-content: space-between;
 }
-.content.disable{
-  /* cursor: no-drop; */
+
+.alarmset + div {
+  display:inline-flex;
 }
-.content .column{
+
+.content .column {
   padding: 0 10px;
   border-radius: 5px;
   border: 1px solid #bfbfbf;
   width: calc(100% / 3 - 5px);
 }
 
-.column select{
+.column select {
   width: 100%;
   height: 53px;
   border: none;
@@ -79,21 +128,22 @@ body{
   font-size: 19px;
 }
 
-.wrapper img{
+.wrapper img {
   max-width: 103px;
 }
-.wrapper h1{
+
+.wrapper h1 {
   font-size: 38px;
   font-weight: 500;
   margin: 30px 0;
 }
 
-.content.disable .column{
+.content.disable .column {
   opacity: 0.6;
   pointer-events: none;
 }
 
-.wrapper button{
+.wrapper .setAlarmButton{
   width: 100%;
   border: none;
   outline: none;
@@ -105,28 +155,52 @@ body{
   border-radius: 5px;
   background: #4A98F7;
 }
- .body, .wrapper, .content{
-  
-  display : flex;
+
+.delete button {
+  margin:0;
+  border: none;
+  outline: none;
+  width: 200%;
+  font-size: 15px;
+  padding: 17px 0;
+  margin-top: 20px;
+  border-radius: 5px;
+  background: #4A98F7;
+  color: #fff;
+  cursor: pointer;
+}
+.body,
+.wrapper
+/* .content  */
+{
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+
+  display: flex;
   align-items: center;
   justify-content: center;
 }
 
 @media only screen and (min-width:701px) and (max-width:1600px) {
-  .wrapper{
-    
+  .wrapper {
+
     margin-top: 5%;
     width: 550px;
-    height : 550px;
+    height: 550px;
     padding: 30px 30px 38px;
     background: #fff;
     border-radius: 10px;
     flex-direction: column;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     margin-left: auto;
     margin-right: auto;
   }
- 
+
   .alarm {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -136,20 +210,20 @@ body{
   }
 }
 
-@media only screen and (min-width:701px) and (max-width:1280px)  {
-  .wrapper{
-    
+@media only screen and (min-width:701px) and (max-width:1280px) {
+  .wrapper {
+
     margin-top: 5%;
     width: 105%;
     padding: 30px 30px 38px;
     background: #fff;
     border-radius: 10px;
     flex-direction: column;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     margin-left: auto;
     margin-right: auto;
   }
-  
+
   .alarm {
     display: grid;
     grid-template-rows: 1fr 1fr;
@@ -160,17 +234,17 @@ body{
   }
 }
 
-@media only screen and (max-width:700px)  {
-  .wrapper{
-    
+@media only screen and (max-width:700px) {
+  .wrapper {
+
     margin-top: 5%;
     width: 105%;
     padding: 30px 30px 38px;
     background: #fff;
     border-radius: 10px;
     flex-direction: column;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-   
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+
   }
 
   .alarm {
@@ -178,10 +252,10 @@ body{
     grid-template-rows: 1fr 1fr;
     grid-template-areas:
       "wrapper1"
-      "wrapper2" 
+      "wrapper2"
     ;
     margin-left: auto;
     margin-right: auto;
   }
-  
+
 }
