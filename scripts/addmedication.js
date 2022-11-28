@@ -18,41 +18,34 @@ function chooseFileListener() {
 }
 chooseFileListener();
 
+// function for adding medication info and storing information into firestore
 function addMedInfo() {
-    console.log("add your new medication");
-
     let Name = document.getElementById("nameAddInput").value;
-    // let Code = document.getElementById("codeAddInput").value;
+    let Code = document.getElementById("codeAddInput").value;
     let Intake = document.getElementById("intakeAddInput").value;
     let Details = document.getElementById("detailsAddInput").value;
-    console.log(Name, Intake, Details);
-    // Name, Code, Intake, Details
 
     firebase.auth().onAuthStateChanged(user => {
         if (user) 
-            var userID = user.uid;
+
             //get the sub-collection of the document for current user.
             db.collection("users").doc(user.uid).collection("medications").add({
                 name: Name,
-                // code: Code,
+                code: Code,
                 intake: Intake,
                 details: Details,
                 timestamp: firebase.firestore.FieldValue.serverTimestamp()
             }).then((doc) => {
-                console.log(doc.id);
                 updateMedImage(user.uid, doc.id);
-                //window.location.href = "result.html"; //new line added
             })
-        }) 
-    };
+    }) 
+};
 
+// function to update image to cloud
 function updateMedImage(userid, medid) {
     var storageRef = storage.ref("images/" + medid + ".jpg");
-    console.log(storageRef);
-    console.log(ImageFile);
     storageRef.put(ImageFile) //picture that was chosen
         .then(function () {
-            console.log('Uploaded to Cloud Storage.');
             //Asynch call to get URL from Cloud
             storageRef.getDownloadURL()
                 .then((url) => {   //"url" is the returned url pointing to cloud image
@@ -61,13 +54,9 @@ function updateMedImage(userid, medid) {
                         .collection("medications").doc(medid).update({
                             picture: url // Save the URL into users collection
                         })
-                        .then(function () {
-                            console.log('Added Profile Pic URL to Firestore.');
-                            console.log('Saved use profile info');
-                            //document.getElementById('personalInfoFields').disabled = true;
                         }).then(()=>{
-                            window.location.href = "../html/result.html"; //new line added
+                            window.location.href = "result.html";
                         })
                 })
-        })
+        // })
 }
