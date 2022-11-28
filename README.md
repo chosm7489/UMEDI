@@ -41,10 +41,10 @@ It has the following subfolders and files:
     /medication              # HTML editing the current medications that the user has editing
     /result                  # HTML for using when the user has added a new medication.
 ├── images                   # Folder for images, referenced from https://fonts.google.com/icons
-    /alarm.png                # Icon for alarm
-    /clock.svg                # Functioning alarm clock displaying current local time
-    /medicine.png             # Icon for medicine
-    /ringtone.mp3             # Ringtone for alarm
+    /alarm.png               # Icon for alarm
+    /clock.svg               # Functioning alarm clock displaying current local time
+    /medicine.png            # Icon for medicine
+    /ringtone.mp3            # Ringtone for alarm
 ├── scripts                  # Folder for scripts
     /addmedication.js        # JS that grabs the current input from the user, and will store that into a database as well as link
     /alarmclock.js           # JS that makes uses various function to get and delete collections
