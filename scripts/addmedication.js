@@ -34,7 +34,6 @@ function addMedInfo() {
             db.collection("users").doc(user.uid).collection("medications").add({
                 name: Name,
                 code: Code,
-                userID: userID,
                 intake: Intake,
                 details: Details,
                 timestamp: firebase.firestore.FieldValue.serverTimestamp()
