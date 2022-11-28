@@ -8,12 +8,12 @@ function loadSkeleton(){
 }
 loadSkeleton();  //invoke the function
 
+// checks if user is logged in
 var currentUser;
 firebase.auth().onAuthStateChanged(user => {
     if (user) {
         currentUser = db.collection("users").doc(user.uid);   //global
 
-        // the following functions are always called when someone is logged in
         displayCards("users");
     } else {
         // No user is signed in.
@@ -21,12 +21,12 @@ firebase.auth().onAuthStateChanged(user => {
     }
 });
 
+// function to display all added medicine as cards
 function displayCards(collection) {
     let cardTemplate = document.getElementById("MedicationCardTemplate");
     firebase.auth().onAuthStateChanged(user => { 
         db.collection("users").doc(user.uid).collection("medications").get()
         .then(snap => {
-            //var i = 1;  //if you want to use commented out section
             snap.forEach(doc => { //iterate thru each doc
                 var title = doc.data().name;        // get value of the "name" key
                 var details = doc.data().details;   // get value of the "details" key
@@ -44,12 +44,12 @@ function displayCards(collection) {
 
                 //attach to gallery
                 document.getElementById("history-go-here").appendChild(newcard);
-                //i++;   //if you want to use commented out section
             })
         })
     })
 }
-
+    
+// carryover of data
 function setMedData(id){
     localStorage.setItem ('MedID', id);
 }

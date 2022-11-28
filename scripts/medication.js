@@ -1,10 +1,13 @@
+// grab information from previous webpage
 var MedID = localStorage.getItem("MedID");
 
+// variables for pulling infomation from file
 var currentMedication;
 var title;
 var intakefreq;
 var meddetails;
 
+// check if user is logged in, obtain information for specific medication
 function getMedData(MedID){
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
@@ -45,22 +48,21 @@ function getMedData(MedID){
     
 getMedData(MedID);
 
+// listner allowing for editing of medication info
 function editMedInfo() {
     // Enable the form fields
     document.getElementById('medicationInfoFields').disabled = false;
 }
 
-
+// listener allowing for saving of medication information and sending updated information to firestore
 function saveMedInfo() {
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
             var newID;
-            console.log("first");
             title = document.getElementById('nameInput').value;         //get the value of the field with id="nameInput"
             intakefreq = document.getElementById('intakeInput').value;     //get the value of the field with id="intakeInput"
             meddetails = document.getElementById('detailsInput').value;   //get the value of the field with id="detailsInput"
-            console.log("second");
-            currentMedication = db.collection("users").doc(user.uid).collection("medications").where("code","==",MedID)
+            currentMedication = db.collection("users").doc(user.uid).collection("medications").where("code","==", MedID)
             currentMedication.get().then(res=> {
                 res.forEach((doc) => {
                     newID = doc.id;
