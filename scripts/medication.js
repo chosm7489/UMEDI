@@ -71,6 +71,7 @@ function saveMedInfo() {
                     })
                     .then(() => {
                         console.log("Document updated successfully!");
+                        window.location.href = "history.html";
                     })
                 });
             })
