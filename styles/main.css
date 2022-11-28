@@ -1,0 +1,29 @@
+.shortCut {
+  display: inline-block;
+  margin:1%;
+  width: 150px;
+  height: 150px;
+  padding: 30px 30px 38px;
+ 
+  background: #fff;
+  border-radius: 10px;
+  /* flex-direction: row; */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  /* margin-left: auto;
+  margin-right: auto; */
+  text-align: center;
+  /* line-height: 150px; */
+  }
+ .shortcutHistory {
+  font-size: large;
+  text-decoration: none; 
+  color: black;
+  font-weight: bold;
+ }
+
+ .shortcutAlarm {
+  font-size: large;
+  font-weight: bold;
+  text-decoration: none; 
+  color: black;
+ }

@@ -3,8 +3,8 @@
 // (navbar, footer, and other things) into html doc. 
 //---------------------------------------------------
 function loadSkeleton(){
-    console.log($('#navbarPlaceholder').load('../text/nav.html'));
-    console.log($('#footerPlaceholder').load('../text/footer.html'));
+    $('#navbarPlaceholder').load('../text/nav.html');
+    $('#footerPlaceholder').load('../text/footer.html');
 }
 loadSkeleton();  //invoke the function
 
@@ -30,7 +30,7 @@ function displayCards(collection) {
             snap.forEach(doc => { //iterate thru each doc
                 var title = doc.data().name;        // get value of the "name" key
                 var details = doc.data().details;   // get value of the "details" key
-                var Intake = doc.data().Intake_Frequency; // get value of the "intake" key
+                var Intake = doc.data().intake; // get value of the "intake" key
 				var MedID = doc.data().code;    //get unique ID to each hike to be used for fetching right image
                 var URL = doc.data().picture;
                 let newcard = cardTemplate.content.cloneNode(true);
@@ -39,7 +39,7 @@ function displayCards(collection) {
                 newcard.querySelector('.card-title').innerHTML = title;
                 newcard.querySelector('.card-text').innerHTML = details;
                 newcard.querySelector('.card-image').src = URL;
-                // newcard.querySelector('.card-image').src = `./images/${MedID}.png`; Example: NV01.jpg
+                newcard.querySelector('.card-intake').innerHTML = Intake;
                 newcard.querySelector('a').onclick = () => setMedData(MedID);
 
                 //attach to gallery
