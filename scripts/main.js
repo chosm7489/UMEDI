@@ -3,13 +3,8 @@ function insertName() {
         // Check if a user is signed in:
         if (user) {
             // Do something for the currently logged-in user here: 
-            console.log(user.uid);
-            console.log(user.displayName);
             user_Name = user.displayName;
 
-            //method #1:  insert with html only
-            //document.getElementById("name-goes-here").innerText = user_Name;    //using javascript
-            //method #2:  insert using jquery
             $("#name-goes-here").text(user_Name); //using jquery
 
         } else {
@@ -27,13 +22,6 @@ function readQuote() {
             if (quoteDiv) {
                 document.getElementById("quote-goes-here").innerHTML = somedoc.data().quote;
             }
-            //arrow notation
-            //.data() returns data object
-            //using javascript to display the data on the right place
-
-            //Here are other ways to access key:value data fields
-            //$('#quote-goes-here').text(tuesdayDoc.data().quote);                                       //using jquery object dot notation
-            //$("#quote-goes-here").text(tuesdayDoc.data()["quote"]);                                    //using json object indexing
         })
 }
 readQuote();        //calling the function
