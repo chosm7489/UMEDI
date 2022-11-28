@@ -1,65 +1,81 @@
-var currentMedication = localStorage.getItem("MedID");
+var MedID = localStorage.getItem("MedID");
 
-function populateInfo() {
+var currentMedication;
+var title;
+var intakefreq;
+var meddetails;
+
+function getMedData(MedID){
     firebase.auth().onAuthStateChanged(user => {
-        // Check if user is signed in:
         if (user) {
+            currentMedication = db.collection("users").doc(user.uid).collection("medications")
+            currentMedication.where("code", "==", MedID)
+           .get()
+           .then(queryMedications => {
+               //see how many items are returned from the query with ".size"
+               size = queryMedications.size;
+               // get the documents returned from query with ".docs"
+               meds = queryMedications.docs;   
 
-            //go to the correct history document by referencing to the history id
-            currentMedication = db.collection("history").doc(history.id)
-            //get the document for current medication.
-            currentMedication.get()
-                .then(historyDoc => {
-                    //get the data fields of the medication
-                    var medName = historyDoc.data().name;
-                    var medCode = historyDoc.data().code;
-                    var medIntake = historyDoc.data().Intake_Frequency;
-                    var medDetails = historyDoc.data().details;
-
-                    //if the data fields are not empty, then write them in to the form.
-                    if (nameInput != null) {
-                        document.getElementById("nameInput").value = medName;
-                    }
-                    if (codeInput != null) {
-                        document.getElementById("codeInput").value = medCode;
-                    }
-                    if (intakeInput != null) {
-                        document.getElementById("intakeFreq").value = medIntake;
-                    }
-                    if (detailsInput != null) {
-                        document.getElementById("details").value = medDetails;
-                    }
-                })
-        } else {
-            // No user is signed in.
-            console.log ("No user is signed in");
+               // Checking to see that there is one document per medications
+               if (size = 1) {
+                   var thisMed = meds[0].data();
+                   title = thisMed.name;
+                   document.getElementById("nameInput").innerHTML = title;
+                   document.getElementById("nameInput").value = title;
+                   intakefreq = thisMed.intake;
+                   document.getElementById("intakeInput").innerHTML = intakefreq;
+                   document.getElementById("intakeInput").value = intakefreq;
+                   meddetails = thisMed.details;
+                   document.getElementById("detailsInput").innerHTML = meddetails;
+                   document.getElementById("detailsInput").value = meddetails;
+                   
+                   
+               } else {
+                   console.log("Query has more than one data")
+               }
+           })
+           .catch((error) => {
+               console.log("Error getting documents: ", error);
+           });
+           
         }
-    });
+    })
 }
-
-//call the function to run it 
-populateInfo();
+    
+getMedData(MedID);
 
 function editMedInfo() {
     // Enable the form fields
     document.getElementById('medicationInfoFields').disabled = false;
 }
 
+
 function saveMedInfo() {
-    medName = document.getElementById('nameInput').value;         //get the value of the field with id="nameInput"
-    medCode = document.getElementById('codeInput').value;         //get the value of the field with id="codeInput"
-    medIntake = document.getElementById('intakeInput').value;     //get the value of the field with id="intakeInput"
-    medDetails = document.getElementById('detailsInput').value;   //get the value of the field with id="detailsInput"
+    firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+            var newID;
+            console.log("first");
+            title = document.getElementById('nameInput').value;         //get the value of the field with id="nameInput"
+            intakefreq = document.getElementById('intakeInput').value;     //get the value of the field with id="intakeInput"
+            meddetails = document.getElementById('detailsInput').value;   //get the value of the field with id="detailsInput"
+            console.log("second");
+            currentMedication = db.collection("users").doc(user.uid).collection("medications").where("code","==",MedID)
+            currentMedication.get().then(res=> {
+                res.forEach((doc) => {
+                    newID = doc.id;
+                    db.collection("users").doc(user.uid).collection("medications").doc(newID).update({
+                        name: title,
+                        intake: intakefreq,
+                        details: meddetails
+                    })
+                    .then(() => {
+                        console.log("Document updated successfully!");
+                    })
+                });
+            })
 
-    currentMedication.update({
-        name: medName,
-        code: medCode,
-        Intake_Frequency: medIntake,
-        details: medDetails
+            document.getElementById('medicationInfoFields').disabled = true;
+        }
     })
-    .then(() => {
-        console.log("Document successfully updated!");
-    })
-
-    document.getElementById('medicationInfoFields').disabled = true;
 }
