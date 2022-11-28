@@ -25,11 +25,15 @@ Content of the project folder:
 ├── .gitignore               # Git ignore file
 ├── index.html               # landing HTML file, this is what users see when you come to url
 └── README.md
+└── Template.html            # template for all html pages after user signin
 
 It has the following subfolders and files:
 ├── .git                     # Folder for git repo
-├── images                   # Folder for images
-    /blah.jpg                # 
+├── images                   # Folder for images, referenced from https://fonts.google.com/icons
+    /alarm.png                # Icon for alarm
+    /clock.svg                # Functioning alarm clock displaying current local time
+    /medicine.png             # Icon for medicine
+    /ringtone.mp3             # Ringtone for alarm
 ├── scripts                  # Folder for scripts
     /blah.js                 # 
 ├── styles                   # Folder for styles
@@ -37,6 +41,11 @@ It has the following subfolders and files:
 
 Firebase hosting files: 
 ├── .firebaserc...
+
+Documentation:
+├── https://cloud.google.com/firestore/docs
+├── https://devdocs.io/javascript/
+├── https://getbootstrap.com/docs/4.1/getting-started/introduction/
 
 
 ```
