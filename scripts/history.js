@@ -3,8 +3,8 @@
 // (navbar, footer, and other things) into html doc. 
 //---------------------------------------------------
 function loadSkeleton(){
-    console.log($('#navbarPlaceholder').load('./text/nav.html'));
-    console.log($('#footerPlaceholder').load('./text/footer.html'));
+    console.log($('#navbarPlaceholder').load('../text/nav.html'));
+    console.log($('#footerPlaceholder').load('../text/footer.html'));
 }
 loadSkeleton();  //invoke the function
 
@@ -20,7 +20,7 @@ firebase.auth().onAuthStateChanged(user => {
     } else {
         // No user is signed in.
         console.log("No user is signed in");
-        window.location.href = "login.html";
+        window.location.href = "../html/login.html";
     }
 });
 

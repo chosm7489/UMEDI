@@ -65,7 +65,7 @@ function updateMedImage(userid, medid) {
                             console.log('Saved use profile info');
                             //document.getElementById('personalInfoFields').disabled = true;
                         }).then(()=>{
-                            window.location.href = "result.html"; //new line added
+                            window.location.href = "../html/result.html"; //new line added
                         })
                 })
         })

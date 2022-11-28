@@ -4,7 +4,7 @@
 <head>
     <title>UMedi</title>
     <meta name="UMedi" content="Umedi">
-    <link rel="stylesheet" href="./styles/FAQstyle.css">
+
     <!------------------------>
     <!-- Required meta tags -->
     <!------------------------>
@@ -47,19 +47,13 @@
     <nav id="navbarPlaceholder"></nav>
 
     <!-- body of page -->
-    <br>
-    <h3 id="FAQ">Frequently asked questions</h1>
-        <br>
-        <p id="FAQ">Q: What motivated you to make this application?
-            <br> A: One of the developers kept forgetting to take his vitamins.
-        </p>
-        <br>
-        <p id="FAQ">Q: What was the approach when making the website?
-            <br> A: To make the website simple as possible to use for all ages.
-        </p>
-        <p id="FAQ">Q: How long did this application take to make?
-            <br> A: The application was build over a course of 14 weeks. From conceptualization to a working model.
-        </p>
+    <div class="container-fluid bg-dark text-light p-5">
+        <div class="container bg-dark p-5">
+            <h1 class="display-4">Good morning, <span id="name-goes-here"></span></h1>
+            <hr>
+            <p>Quote of the Day: <span id="quote-goes-here"></span></p>
+        </div>
+    </div>
 
     <!-- footer goes here-->
     <nav id="footerPlaceholder"></nav>
@@ -67,10 +61,9 @@
     <!---------------------------------------------->
     <!-- Your own JavaScript functions go here    -->
     <!---------------------------------------------->
-    <script src="./scripts/firebaseAPI_BBY15.js"></script>
-    <script src="./scripts/skeleton.js"></script>
-    <script src="./scripts/main.js"></script>
-    <script src="./scripts/script.js"></script>
+    <script src="../scripts/firebaseAPI_BBY15.js"></script>
+    <script src="../scripts/skeleton.js"></script>
+    <script src="../scripts/main.js"></script>
 </body>
 
 </html>
