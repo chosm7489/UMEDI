@@ -113,7 +113,7 @@ function setAlarm() {
                         .then(() => {
                             console.log("work!");
                             populateAlarm()
-                            
+                            window.location.reload()
                         })
 
                 })
@@ -197,6 +197,6 @@ function populateAlarm() {
     })
 }
 
-setAlarmBtn.addEventListener("click", setAlarm);
+// setAlarmBtn.addEventListener("click", setAlarm);
 
 
