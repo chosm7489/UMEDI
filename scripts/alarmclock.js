@@ -2,6 +2,7 @@ const currentTime = document.querySelector("h1"),
     content = document.querySelector(".content"),
     selectMenu = document.querySelectorAll("select"),
     setAlarmBtn = document.querySelector("button");
+    // setAlarmBtn = document.getElementById("setAlarmButton");
 
 populateAlarm();
 
@@ -64,23 +65,39 @@ setInterval(() => {
 
 const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
-function setAlarm() {
-
+function turnOffAlarm() {
+    isAlarmSet = true;
     if (isAlarmSet) {
         alarmTime = "";
         ringtone.pause();
         // content.classList.remove("disable");
-        setAlarmBtn.innerText = "Set Alarm";
+        // setAlarmBtn.innerText = "Set Alarm";
         return isAlarmSet = false;
     }
+    console.log("Turnoff button clikced");
+    
+}
+
+
+function setAlarm() {
+
+    // if (isAlarmSet) {
+    //     alarmTime = "";
+    //     ringtone.pause();
+    //     // content.classList.remove("disable");
+    //     // setAlarmBtn.innerText = "Set Alarm";
+    //     return isAlarmSet = false;
+    // }
     console.log("button clicked");
-    var time = `${selectMenu[0].value}:${selectMenu[1].value} ${selectMenu[2].value}`;
-    alarmTime = time;
+    // var time = `${selectMenu[0].value}:${selectMenu[1].value} ${selectMenu[2].value}`;
+    // alarmTime = time;
     // isAlarmSet = true;
     // content.classList.add("disable");
     // setAlarmBtn.innerText = "Clear Alarm";
 
-    var timeSetUp = db.collection("alarm");
+    var time = `${selectMenu[0].value}:${selectMenu[1].value} ${selectMenu[2].value}`;
+    alarmTime = time;
+   
 
     var dayIndex = 0;
 
@@ -91,6 +108,8 @@ function setAlarm() {
             break;
         }
     }
+
+    var userInputNote = document.getElementById("userNoteText").value;
 
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
@@ -107,10 +126,11 @@ function setAlarm() {
                         minute: String([time[3] + time[4]]),
                         AMPM: String(time[6] + time[7]),
                         day: dayIndex,
-                       
+                        userNote: userInputNote
+
                     })
                         .then(() => {
-
+                            console.log("work!");
                             populateAlarm()
                             // readAlarm();
                             // window.location.href = "thanks.html";
@@ -129,7 +149,7 @@ function test(alarmId) {
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
             db.collection("alarm").doc(alarmId).delete()
-            .then(() => {window.location.reload()})
+                .then(() => { window.location.reload() })
         }
     })
 }
@@ -163,34 +183,35 @@ function populateAlarm() {
 
                     reviews.forEach(doc => {
                         var userdays = doc.data().day
-                        var userhours = doc.data().hour
-                        var userminute = doc.data().minute
+                        var userhours = doc.data().hour + ":" + doc.data().minute
+                        // var userminute = doc.data().minute
                         var userAMPM = doc.data().AMPM
                         var alarmId = doc.id
                         var _button = document.createElement("button");
-                       
+                        var usernoteinput = doc.data().userNote;
 
-
+                        console.log(usernoteinput);
                         // document.getElementById("dayss").innerHTML = userdays;
 
                         let userdata = document.createElement("div");
-                        userdata.classList.add("content", "alarmlist");
+                        userdata.classList.add("content", "alarmset");
                         let d1 = document.createElement("div");
                         let d2 = document.createElement("div");
-                        let d3 = document.createElement("div");
+                        let d3 = document.createElement("span");
+                        d3.classList.add("content", "userNote");
+
                         let d4 = document.createElement("div");
                         let d5 = document.createElement("div");
 
-
+                        d3.innerHTML = usernoteinput;
                         d1.innerHTML = days[userdays];
                         d2.innerHTML = userhours;
-                        d3.innerHTML = userminute;
-                        d4.innerHTML = userAMPM
+                        d4.innerHTML = userAMPM;
                         d5.innerHTML = "";
 
+                        userdata.appendChild(d3);
                         userdata.appendChild(d1);
                         userdata.appendChild(d2);
-                        userdata.appendChild(d3);
                         userdata.appendChild(d4);
                         userdata.appendChild(d5);
 
