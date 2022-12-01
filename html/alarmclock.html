@@ -41,66 +41,74 @@
     <!-- Your HTML Layout go here -->
     <!------------------------------>
 
-    <!-- navbar -->
-    <nav id="navbarPlaceholder"></nav>
-    <div class="alarm">
-        <div class="wrapper wrapper1">
-            <img src="../images/clock.svg" alt="clock">
-            <h1>00:00:00 PM</h1>
-            <div class="content">
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="Mon" value="option">
-                    <label class="form-check-label" for="inlineRadio">Mon</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="Tue" value="option">
-                    <label class="form-check-label" for="inlineRadio">Tue</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="Wed" value="option">
-                    <label class="form-check-label" for="inlineRadio">Wed</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="Thu" value="option">
-                    <label class="form-check-label" for="inlineRadio">Thu</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="Fri" value="option">
-                    <label class="form-check-label" for="inlineRadio">Fri</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="Sat" value="option">
-                    <label class="form-check-label" for="inlineRadio">Sat</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="Sun" value="option">
-                    <label class="form-check-label" for="inlineRadio">Sun</label>
-                </div>
-            </div>
-            <div class="content">
-
-                <div class="column">
-                    <select>
-                        <option value="Hour" selected disabled hidden>Hour</option>
-                    </select>
-                </div>
-                <div class="column">
-                    <select>
-                        <option value="Minute" selected disabled hidden>Minute</option>
-                    </select>
-                </div>
-                <div class="column">
-                    <select>
-                        <option value="AM/PM" selected disabled hidden>AM/PM</option>
-                    </select>
-                </div>
-            </div>
-            <div class="content">
-                <input id="userNoteText" type="text" placeholder="Leave note here!" value="">
-            </div>
-            <button class="setAlarmButton" onclick=setAlarm()>Set Alarm</button>
-            <button class="turnOffButton" onclick=turnOffAlarm()>Turn Off Alarm</button>
+  <!-- navbar -->
+  <nav id="navbarPlaceholder"></nav>
+  <div class="alarm">
+    <div class="wrapper wrapper1">
+      <img src="../images/clock.svg" alt="clock">
+      <h1>00:00:00 PM</h1>
+      <!--This portion allows you to select which day you want to set your alarm.-->
+      <div class="content">
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="Mon" value="option">
+          <label class="form-check-label" for="inlineRadio">Mon</label>
         </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="Tue" value="option">
+          <label class="form-check-label" for="inlineRadio">Tue</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="Wed" value="option">
+          <label class="form-check-label" for="inlineRadio">Wed</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="Thu" value="option">
+          <label class="form-check-label" for="inlineRadio">Thu</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="Fri" value="option">
+          <label class="form-check-label" for="inlineRadio">Fri</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="Sat" value="option">
+          <label class="form-check-label" for="inlineRadio">Sat</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="Sun" value="option">
+          <label class="form-check-label" for="inlineRadio">Sun</label>
+        </div>
+      </div>
+      <div class="content">
+
+        <!--Drop down menu for hour-->
+        <div class="column">
+          <select>
+            <option value="Hour" selected disabled hidden>Hour</option>
+          </select>
+        </div>
+
+         <!--Drop down menu for minute-->
+        <div class="column">
+          <select>
+            <option value="Minute" selected disabled hidden>Minute</option>
+          </select>
+        </div>
+
+         <!--Drop down menu for am/pm-->
+        <div class="column">
+          <select>
+            <option value="AM/PM" selected disabled hidden>AM/PM</option>
+          </select>
+        </div>
+      </div>
+
+       <!--To set the alarm or turn off the alarm buttons-->
+      <div class="content">
+        <input id="userNoteText" type="text" placeholder="Leave note here!" value="">
+      </div>
+      <button class="setAlarmButton" onclick=setAlarm()>Set Alarm</button>
+      <button class="turnOffButton" onclick=turnOffAlarm()>Turn Off Alarm</button>
+    </div>
 
         <div id="alarmlist" class="wrapper wrapper2">
 
