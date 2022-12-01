@@ -1,33 +1,33 @@
 .shortCut {
-  display: inline-block;
-  margin: 1%;
-  width: 150px;
-  height: 150px;
-  padding: 30px 30px 38px;
+    display: inline-block;
+    margin: 1%;
+    width: 150px;
+    height: 150px;
+    padding: 30px 30px 38px;
 
-  background: #fff;
-  border-radius: 10px;
+    background: #fff;
+    border-radius: 10px;
 
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 
-  text-align: center;
+    text-align: center;
 
 }
 
 .applications {
-  padding-left: 3%;
+    padding-left: 3%;
 }
 
 .shortcutHistory {
-  font-size: large;
-  text-decoration: none;
-  color: black;
-  font-weight: bold;
+    font-size: large;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
 }
 
 .shortcutAlarm {
-  font-size: large;
-  font-weight: bold;
-  text-decoration: none;
-  color: black;
+    font-size: large;
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
 }

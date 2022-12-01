@@ -1,3 +1,4 @@
+//Query selectors by its id or class name
 const currentTime = document.querySelector("h1"),
     content = document.querySelector(".content"),
     selectMenu = document.querySelectorAll("select"),
@@ -9,12 +10,12 @@ populateAlarm();
 var currentUser;
 firebase.auth().onAuthStateChanged(user => {
     if (user) {
-        currentUser = db.collection("users").doc(user.uid);   
-       
+        currentUser = db.collection("users").doc(user.uid);
+
     } else {
-      
+
         console.log("No user is signed in");
-       
+
     }
 });
 
@@ -82,11 +83,13 @@ function turnOffAlarm() {
 //Set alarm
 function setAlarm() {
 
+    // Grab user alarm set and save it into var
     var time = `${selectMenu[0].value}:${selectMenu[1].value} ${selectMenu[2].value}`;
     alarmTime = time;
-   
+
     var dayIndex = 0;
 
+    //Check which day is selected. 
     for (let i = 0; i <= days.length; i++) {
         if (document.getElementById(`${days[i]}`).checked === true) {
             dayIndex = i;
@@ -96,6 +99,7 @@ function setAlarm() {
 
     var userInputNote = document.getElementById("userNoteText").value;
 
+    //Read user alarm setting and save it to firebase 
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
             var currentUser = db.collection("users").doc(user.uid)
@@ -103,6 +107,7 @@ function setAlarm() {
             currentUser.get()
                 .then(userDoc => {
                     var userEmail = userDoc.data().email;
+                    //Add data into firebase
                     db.collection("alarm").add({
                         userID: userID,
                         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
@@ -112,17 +117,13 @@ function setAlarm() {
                         AMPM: String(time[6] + time[7]),
                         day: dayIndex,
                         userNote: userInputNote
-
                     })
+                        // Reload website after adding new alarm set
                         .then(() => {
-                            console.log("work!");
                             populateAlarm()
                             window.location.reload()
                         })
-
                 })
-
-
         }
     })
 
@@ -133,6 +134,7 @@ function deleteAlarm(alarmId) {
 
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
+           
             db.collection("alarm").doc(alarmId).delete()
                 .then(() => { window.location.reload() })
         }
@@ -143,24 +145,26 @@ function deleteAlarm(alarmId) {
 function populateAlarm() {
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
-          
-            db.collection("alarm").where("userID", "==" ,user.uid )
+
+            db.collection("alarm").where("userID", "==", user.uid)
+                //Sort alarm list in ascending order of day, AM/PM, hour, ad minute
                 .orderBy("day")
                 .orderBy("AMPM")
                 .orderBy("hour")
                 .orderBy("minute")
 
                 .get()
-               
+
                 .then(allReviews => {
                     reviews = allReviews.docs
 
                     document.getElementById("alarmlist").innerHTML = "";
 
+                    //Save user alarm set in divs and append it to alarm list.
                     reviews.forEach(doc => {
                         var userdays = doc.data().day
                         var userhours = doc.data().hour + ":" + doc.data().minute
-                    
+
                         var userAMPM = doc.data().AMPM
                         var alarmId = doc.id
                         var _button = document.createElement("button");
@@ -189,6 +193,7 @@ function populateAlarm() {
                         userdata.appendChild(d5);
 
                         d5.appendChild(_button);
+
                         _button.innerHTML = "Delete"
                         _button.setAttribute("onclick", `deleteAlarm('${alarmId}')`);
                         d5.classList.add("delete");
