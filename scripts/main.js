@@ -17,7 +17,7 @@ insertName(); //run the function
 function readQuote() {
     db.collection("quotes").doc("friday")                                                      //name of the collection and documents should matach excatly with what you have in Firestore
         .onSnapshot(somedoc => {
-            console.log("current document data: " + somedoc.data());
+           
             var quoteDiv = document.getElementById("quote-goes-here");
             if (quoteDiv) {
                 document.getElementById("quote-goes-here").innerHTML = somedoc.data().quote;

@@ -21,24 +21,28 @@ firebase.auth().onAuthStateChanged(user => {
 let alarmTime, isAlarmSet,
     ringtone = new Audio("../images/ringtone.mp3");
 
+// Choose hour 
 for (let i = 12; i > 0; i--) {
     i = i < 10 ? `0${i}` : i;
     let option = `<option value="${i}">${i}</option>`;
     selectMenu[0].firstElementChild.insertAdjacentHTML("afterend", option);
 }
 
+// Choose minute 
 for (let i = 59; i >= 0; i--) {
     i = i < 10 ? `0${i}` : i;
     let option = `<option value="${i}">${i}</option>`;
     selectMenu[1].firstElementChild.insertAdjacentHTML("afterend", option);
 }
 
+// choose am/pm
 for (let i = 2; i > 0; i--) {
     let ampm = i == 1 ? "AM" : "PM";
     let option = `<option value="${ampm}">${ampm}</option>`;
     selectMenu[2].firstElementChild.insertAdjacentHTML("afterend", option);
 }
 
+//Set interval of clock
 setInterval(() => {
     let date = new Date(),
         h = date.getHours(),
@@ -55,6 +59,7 @@ setInterval(() => {
     s = s < 10 ? "0" + s : s;
     currentTime.innerText = `${h}:${m}:${s} ${ampm}`;
 
+    //Set alarm time
     if (alarmTime === `${h}:${m} ${ampm}`) {
         ringtone.play();
         ringtone.loop = true;
@@ -74,10 +79,9 @@ function turnOffAlarm() {
 
 }
 
-
+//Set alarm
 function setAlarm() {
 
-    //Set 
     var time = `${selectMenu[0].value}:${selectMenu[1].value} ${selectMenu[2].value}`;
     alarmTime = time;
    
@@ -123,6 +127,7 @@ function setAlarm() {
     })
 
 }
+
 // Delete alarm set from alarm list
 function deleteAlarm(alarmId) {
 
@@ -197,6 +202,6 @@ function populateAlarm() {
     })
 }
 
-// setAlarmBtn.addEventListener("click", setAlarm);
+
 
 
