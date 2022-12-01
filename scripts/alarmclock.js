@@ -22,21 +22,21 @@ firebase.auth().onAuthStateChanged(user => {
 let alarmTime, isAlarmSet,
     ringtone = new Audio("../images/ringtone.mp3");
 
-// Choose hour 
+// Check user hour input
 for (let i = 12; i > 0; i--) {
     i = i < 10 ? `0${i}` : i;
     let option = `<option value="${i}">${i}</option>`;
     selectMenu[0].firstElementChild.insertAdjacentHTML("afterend", option);
 }
 
-// Choose minute 
+// Check user minute input
 for (let i = 59; i >= 0; i--) {
     i = i < 10 ? `0${i}` : i;
     let option = `<option value="${i}">${i}</option>`;
     selectMenu[1].firstElementChild.insertAdjacentHTML("afterend", option);
 }
 
-// choose am/pm
+// Check user am/pm input
 for (let i = 2; i > 0; i--) {
     let ampm = i == 1 ? "AM" : "PM";
     let option = `<option value="${ampm}">${ampm}</option>`;
@@ -75,6 +75,7 @@ function turnOffAlarm() {
     if (isAlarmSet) {
         alarmTime = "";
         ringtone.pause();
+        // Leave 'if' loop by setting condition = false
         return isAlarmSet = false;
     }
 
@@ -83,7 +84,7 @@ function turnOffAlarm() {
 //Set alarm
 function setAlarm() {
 
-    // Grab user alarm set and save it into var
+    // Grab user alarm set input and save it into var
     var time = `${selectMenu[0].value}:${selectMenu[1].value} ${selectMenu[2].value}`;
     alarmTime = time;
 
@@ -102,12 +103,15 @@ function setAlarm() {
     //Read user alarm setting and save it to firebase 
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
+            //Read user from users collection
             var currentUser = db.collection("users").doc(user.uid)
             var userID = user.uid;
+
+            //Get user data with user id
             currentUser.get()
                 .then(userDoc => {
                     var userEmail = userDoc.data().email;
-                    //Add data into firebase
+                    //Add user alarm set data into firebase
                     db.collection("alarm").add({
                         userID: userID,
                         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
@@ -129,13 +133,15 @@ function setAlarm() {
 
 }
 
-// Delete alarm set from alarm list
+// Delete alarm set from alarm list 
 function deleteAlarm(alarmId) {
 
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
            
+            // Read user alarm set by alarm id and delete it
             db.collection("alarm").doc(alarmId).delete()
+                //Reload after deleting alarm set
                 .then(() => { window.location.reload() })
         }
     })
@@ -146,13 +152,15 @@ function populateAlarm() {
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
 
+            //Read alarm set by user id
             db.collection("alarm").where("userID", "==", user.uid)
-                //Sort alarm list in ascending order of day, AM/PM, hour, ad minute
+                //Sort alarm list in ascending order of day, AM/PM, hour, and minute
                 .orderBy("day")
                 .orderBy("AMPM")
                 .orderBy("hour")
                 .orderBy("minute")
 
+                //Get user aram set data from alarm collection by user id
                 .get()
 
                 .then(allReviews => {
@@ -162,43 +170,58 @@ function populateAlarm() {
 
                     //Save user alarm set in divs and append it to alarm list.
                     reviews.forEach(doc => {
+                        //Declare user alarm datas
                         var userdays = doc.data().day
                         var userhours = doc.data().hour + ":" + doc.data().minute
-
                         var userAMPM = doc.data().AMPM
                         var alarmId = doc.id
+                        var userNoteInput = doc.data().userNote;
                         var _button = document.createElement("button");
-                        var usernoteinput = doc.data().userNote;
+                        let userAlarmData = document.createElement("div");
+                       
+                        userAlarmData.classList.add("content", "alarmset");
 
-                        let userdata = document.createElement("div");
-                        userdata.classList.add("content", "alarmset");
-                        let d1 = document.createElement("div");
-                        let d2 = document.createElement("div");
-                        let d3 = document.createElement("span");
-                        d3.classList.add("content", "userNote");
+                        //Create div element for alarm day 
+                        let userDayDiv = document.createElement("div");
+                        //Create div element for alarm hour 
+                        let userHourDiv = document.createElement("div");
+                        //Create span element for alarm note 
+                        let userNoteSpan = document.createElement("span");
+                       
+                        userNoteSpan.classList.add("content", "userNote");
+                        //Create div element for alarm AMPM
+                        let userAMPMDiv = document.createElement("div");
+                        //Create div element for delete button
+                        let deleteDiv = document.createElement("div");
 
-                        let d4 = document.createElement("div");
-                        let d5 = document.createElement("div");
+                        //Set user alarm data into HTML content
+                        //User note input
+                        userNoteSpan.innerHTML = userNoteInput;
+                        //User day input
+                        userDayDiv.innerHTML = days[userdays];
+                        //User hour input
+                        userHourDiv.innerHTML = userhours;
+                        //User AMPM input
+                        userAMPMDiv.innerHTML = userAMPM;
+                        
+                        deleteDiv.innerHTML = "";
 
-                        d3.innerHTML = usernoteinput;
-                        d1.innerHTML = days[userdays];
-                        d2.innerHTML = userhours;
-                        d4.innerHTML = userAMPM;
-                        d5.innerHTML = "";
+                        //Attach user alarm data to userAlarmData div
+                        userAlarmData.appendChild(userNoteSpan);
+                        userAlarmData.appendChild(userHourDiv);
+                        userAlarmData.appendChild(userDayDiv);
+                        userAlarmData.appendChild(userAMPMDiv);
+                        userAlarmData.appendChild(deleteDiv);
 
-                        userdata.appendChild(d3);
-                        userdata.appendChild(d1);
-                        userdata.appendChild(d2);
-                        userdata.appendChild(d4);
-                        userdata.appendChild(d5);
-
-                        d5.appendChild(_button);
+                        deleteDiv.appendChild(_button);
 
                         _button.innerHTML = "Delete"
+                        //Set attribute to call deleteAlarm function when delete button is clicked
                         _button.setAttribute("onclick", `deleteAlarm('${alarmId}')`);
-                        d5.classList.add("delete");
+                        deleteDiv.classList.add("delete");
 
-                        document.getElementById("alarmlist").appendChild(userdata);
+                        //Attach alarm set data to alarm list div
+                        document.getElementById("alarmlist").appendChild(userAlarmData);
 
                     })
                 })
