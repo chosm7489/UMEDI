@@ -7,7 +7,7 @@
 * [How to use](#How-to-use)
 * [Technologies](#technologies)
 * [Contents](#content)
-* [Contributors] (#Contributors)
+* [Contributors](#Contributors)
 
 ## Description
 Never forget to take your meds and pills again with the MUST HAVE pill reminder, UMEDI!
