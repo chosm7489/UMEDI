@@ -7,13 +7,10 @@
 * [How to use](#How-to-use)
 * [Technologies](#technologies)
 * [Contents](#content)
+* [Contributors] (#Contributors)
 
 ## Description
-This browser based web application to ...
-* Hi my name is Sukhraj. I'm excited about this project because I feel like we are working on a real world problem that can be solved.
-* Hi my name is Eric. I am excited to join this team!	
-* Hi, my name is Helen and I am excited for this project because I can practice coding and make something useful!
-
+Never forget to take your meds and pills again with the MUST HAVE pill reminder, UMEDI!
 ## How-to-use
 https://comp1800---term-project.web.app/
 ## Technologies
@@ -83,3 +80,7 @@ Tips for file naming files and folders:
 * use lowercase with no spaces
 * use dashes (not underscore) for word separation
 
+## Contributors
+* Helen Liu (https://github.com/schwi1996)
+* Sukhraj Sidhu (https://github.com/ssidhu271)
+* Eric Cho (https://github.com/chosm7489)
