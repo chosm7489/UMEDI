@@ -1,4 +1,4 @@
-## UMEDI
+## UMedi
 <img width="1440" alt="image" src="https://user-images.githubusercontent.com/81988553/210102036-eeeb784a-b0b1-4956-ae0b-029530d11ee1.png">
 <img width="1440" alt="image" src="https://user-images.githubusercontent.com/81988553/210102078-34ee14a4-2f14-4a62-b171-233e94149753.png">
 <img width="1436" alt="image" src="https://user-images.githubusercontent.com/81988553/210105275-370a5e62-1810-4a0a-8852-23789f6bbe7f.png">
