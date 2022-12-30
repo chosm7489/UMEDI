@@ -1,7 +1,7 @@
 ## UMEDI
 
 * [Description](#Description)
-* How to use](#How-to-use)
+* [How to use](#How-to-use)
 * [Technologies](#technologies)
 * [Contents](#content)
 
